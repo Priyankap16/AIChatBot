@@ -1,64 +1,64 @@
 import { useState, useRef, useEffect } from "react";
 import "./App.css";
 
-function App() {
-  const [msgs, setMsgs] = useState([
-    { sender: "bot", text: "Hi! I’m your chatbot 🤖. How can I help you today?" },
-  ]);
-  const [inputMsg, setInputMsg] = useState("");
-  const bottomRef = useRef();
+function App(){
 
-  const handleSend = async () => {
-    if (!inputMsg.trim()) return;
+  const [message,setMessage] = useState([ {sender:'bot',text:'hi, how can i help u today?'}])
+  const [input , setInput] = useState("")
+   const bottomRef = useRef();
 
-    const userMsg = { sender: "user", text: inputMsg };
-    setMsgs((prev) => [...prev, userMsg]);
-    setInputMsg("");
+  const handleSend= async()=>{
+    if(!input.trim()) return;
+    const userMsg = {sender:'user', text:input}
+    setMessage((prev)=>[...prev,userMsg])
+    setInput('')
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: inputMsg }),
+        body: JSON.stringify({ message: input }),
       });
       const data = await res.json();
 
       const botMsg = { sender: "bot", text: data.reply };
-      setMsgs((prev) => [...prev, botMsg]);
+      setMessage((prev) => [...prev, botMsg]);
     } catch (err) {
       const botMsg = { sender: "bot", text: "Oops! Something went wrong." };
-      setMsgs((prev) => [...prev, botMsg]);
+      setMessage((prev) => [...prev, botMsg]);
       console.error(err);
     }
   };
-
   useEffect(() => {
     bottomRef.current?.scrollIntoView({  });
-  }, [msgs]);
+  }, [message]);
 
-  return (
-    <div className="chatContainer">
-      <h1 className="title">AI Chatbot 🤖</h1>
-      <div className="msgContainer">
-        {msgs.map((msg, i) => (
-          <div key={i} className={`message ${msg.sender}`}>
-            {msg.text}
-          </div>
-        ))}
-        <div ref={bottomRef}></div>
+  return(
+    <div className='App'>
+    <div className='chatContainer'>
+      <h1 className='chath1'>Lets Chat</h1>
+      <div className='messageContainer'>
+       {message.map((msg,i)=>(
+        <div key={i} className={`message ${msg.sender}`}>
+          {msg.text}
+        </div>
+       ))}
+       <div ref={bottomRef}></div>
       </div>
-      <div className="inputBox">
-        <input
-          type="text"
-          value={inputMsg}
-          onChange={(e) => setInputMsg(e.target.value)}
+      <div className='inputForUser'>
+        <input 
+        type='text'
+        value={input}
+          onChange={(e)=>setInput(e.target.value)}
           placeholder="Type a message..."
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}
-        />
-        <button onClick={handleSend}>Send</button>
+        onKeyDown={(e)=>e.key === 'Enter'  && handleSend()}/>
+        
+        <button onClick={handleSend}> SEND</button>
       </div>
+    
     </div>
-  );
+    </div>
+  )
 }
 
 export default App;

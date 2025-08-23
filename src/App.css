@@ -1,33 +1,40 @@
 body {
-  margin: 0;
+  margin:0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: "Segoe UI", sans-serif;
   background: #f5f5f5;
 }
 
 .chatContainer {
-  max-width: 600px;
-  margin: 50px auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  background: #fff;
+  width: 30vw;
+  max-width: 400px;        /* won’t get too wide */
+  min-width: 250px; 
+  height: 70vh;
+  min-height: 400px;   
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 10px;
   display: flex;
-  flex-direction: column;
-  height: 80vh;
+  flex-direction: column;  /* so messages stack vertically */
+  overflow-y: auto; 
+  
 }
 
-.title {
+.chath1{
+  border-bottom: 1px  solid #ddd;
   text-align: center;
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-  font-size: 24px;
 }
 
-.msgContainer {
+.messageContainer{
   flex: 1;
-  padding: 15px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+ display: flex;
+ flex-direction: column;
+ padding: 9px;
   gap: 10px;
 }
 
@@ -38,24 +45,25 @@ body {
   word-wrap: break-word;
 }
 
-.message.user {
-  background: #0084ff;
-  color: #fff;
-  align-self: flex-end;
+.message.bot{
+background-color: rgb(18, 127, 127);
+align-self: flex-start;
+color: #f5f5f5;
+
 }
 
-.message.bot {
-  background: #eee;
-  color: #333;
-  align-self: flex-start;
+.message.user{
+color: #0f0e0e;
+background-color: rgb(237, 240, 240);
+align-self: flex-end;
 }
 
-.inputBox {
+.inputForUser {
   display: flex;
   border-top: 1px solid #ddd;
 }
 
-.inputBox input {
+.inputForUser input {
   flex: 1;
   padding: 15px;
   border: none;
@@ -64,17 +72,15 @@ body {
   outline: none;
 }
 
-.inputBox button {
+.inputForUser button {
   padding: 15px 20px;
   border: none;
-  background: #0084ff;
+  background: #0f65b5;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 0 0 12px 0;
-  transition: background 0.3s;
 }
 
-.inputBox button:hover {
-  background: #006bbd;
+.inputForUser button:hover {
+  background: #193448;
 }
